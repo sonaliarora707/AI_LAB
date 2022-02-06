@@ -1,0 +1,47 @@
+male(Kavish).
+male(Pankaj).
+male(Ramesh).
+male(Sundeep).
+male(Jayant).
+
+female(Seema).
+female(Sonali).
+female(Sunita).
+female(Esha).
+female(Sanya).
+
+
+parent(Pankaj,Sonali,Kavish).
+parent(Seema,Sonali,Kavish).
+parent(Sunita,Seema,Sundeep).
+parent(Ramesh,Seema,Sundeep).
+parent(Sundeep,Sanya,Jayant).
+parent(Esha,Sanya,Jayant).
+
+
+brother(Kavish,Sonali).
+brother(Sundeep,Seema).
+brother(Jayant,Sanya).
+
+sister(Sonali,Kavish).
+sister(Sanya,Jayant).
+
+father(X,Y) :- parent(X,Z,Y).
+mother(X,Y) :- parent(Z,X,Y).
+
+son(X,Y,Z) :- male(X),father(Y,X),mother(Z,X).
+daughter(X,Y,Z) :- female(X),father(Y,X),mother(Z,X).
+
+wife(X,Y) :- female(X),parent(Y,X,Z).
+husband(X,Y) :- male(X),parent(Y,X,Z).
+
+
+grandfather(X,Y) :- male(X),father(X,Z),father(Z,Y).
+
+uncle(X,Y) :- male(X),brother(X,Z),father(Z,Y).
+
+aunt(X,Y) :- wife(X,Z),uncle(Z,Y).
+
+cousin(X,Y) :- father(Z,X),brother(Z,W),father(W,Y).
+
+
